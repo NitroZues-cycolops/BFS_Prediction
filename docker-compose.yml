@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    ports:
+      - "5000:5000"
+
+  streamlit:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:5000/predict
+    depends_on:
+      - api
